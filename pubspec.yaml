@@ -1,0 +1,51 @@
+name: tasruf
+description: Social app for tasrufdars
+
+publish_to: 'none' 
+
+version: 1.6.0+16
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.5
+  form_field_validator: ^1.1.0
+  flutter_svg: ^1.0.3
+  pinput: ^2.2.21
+  about: ^2.1.1
+  flutter_vector_icons: ^2.0.0
+  share: ^2.0.4
+  firebase_auth: ^4.2.2
+  cloud_firestore: ^4.3.1
+  firebase_core: ^2.4.1
+  awesome_dialog: ^3.0.2
+  provider: ^6.0.5
+  shared_preferences: ^2.0.15
+  upgrader: ^4.8.1
+  swipe_to: ^1.0.2
+  flutter_linkify: ^5.0.2
+  animated_background: ^2.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_native_splash: ^1.1.8+4
+  flutter_lints: ^2.0.1
+
+flutter_native_splash:
+  image: assets/images/splash.png
+  color: "7c6a86"
+
+    
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+
