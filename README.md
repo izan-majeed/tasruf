@@ -16,9 +16,9 @@ In addition, Tasruf provides encrypted messages and chat history is cleared afte
 # Things to Consider
 Before using Tasruf, please note the following:
 
-* You can't change your name
-* You can't delete your account by yourself, you'll need to request the administrator to do so
-* Your account will be permanently disabled if you use abusive language
+* You can't change your name.
+* You can't delete your account by yourself, you'll need to request the administrator to do so.
+* Your account will be permanently disabled if you use abusive language.
 
 # Phone Authentication
 Tasruf requires phone authentication to avoid flooding of spammers and to ensure that all users are genuine Tasrufdars.
