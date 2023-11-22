@@ -21,21 +21,21 @@ class OTPScreen extends StatefulWidget {
   final bool signUp;
 
   const OTPScreen({
-    Key key,
-    this.phoneNumber,
-    this.name,
+    Key? key,
+    this.phoneNumber = '',
+    this.name = '',
     this.signUp = false,
   }) : super(key: key);
 
   @override
-  _OTPScreenState createState() => _OTPScreenState();
+  State<OTPScreen> createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _pinPutController = TextEditingController();
-  String _verificationCode;
+  String _verificationCode = '';
   bool showSpinner = false;
 
   @override
@@ -54,11 +54,11 @@ class _OTPScreenState extends State<OTPScreen> {
           context: context,
           dialogType: DialogType.error,
           title: 'Error',
-          desc: e.message,
+          desc: e.message!,
           okPress: () {},
         );
       },
-      codeSent: (String verificationId, int resendToken) {
+      codeSent: (String verificationId, int? resendToken) {
         _verificationCode = verificationId;
 
         awesomeDialog(
@@ -95,18 +95,14 @@ class _OTPScreenState extends State<OTPScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          Container(
-            child: const Text(
-              'Enter One Time Passoword',
-              style: kLoginHeadingTextStyle,
-            ),
+          const Text(
+            'Enter One Time Passoword',
+            style: kLoginHeadingTextStyle,
           ),
           const SizedBox(height: 10),
-          Container(
-            child: const Text(
-              'Wait while we sent OTP to your mobile number',
-              style: kLoginSubHeadingTextStyle,
-            ),
+          const Text(
+            'Wait while we sent OTP to your mobile number',
+            style: kLoginSubHeadingTextStyle,
           ),
           otpBoxes(),
           showSpinner
@@ -130,7 +126,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   verifyUser() async {
     FocusScope.of(context).unfocus();
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       try {
         setState(() {
           showSpinner = true;
@@ -142,7 +138,7 @@ class _OTPScreenState extends State<OTPScreen> {
           ),
         );
 
-        User user = _auth.currentUser;
+        User user = _auth.currentUser!;
         if (widget.signUp) await createUserInFirestore(user);
 
         Navigator.pushNamedAndRemoveUntil(
@@ -154,8 +150,10 @@ class _OTPScreenState extends State<OTPScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Invalid OTP \n${e.message}',
+              'Invalid OTP \n${e.toString()}',
               style: const TextStyle(color: Colors.white),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
             ),
           ),
         );
@@ -196,7 +194,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   errorText: 'Enter the complete verification Code',
                 ),
               ],
-            ),
+            ).call,
             onSubmitted: (pin) => FocusScope.of(context).unfocus(),
             controller: _pinPutController,
             keyboardType: TextInputType.number,

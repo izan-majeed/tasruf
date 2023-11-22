@@ -8,11 +8,11 @@ import '../screens/login_screen.dart';
 class AuthScreen extends StatelessWidget {
   static const String id = "AuthScreen";
 
-  const AuthScreen({Key key}) : super(key: key);
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<User>();
-    return (user != null) ? const HomePage() : const LoginScreen();
+    final User? user = context.watch<User?>();
+    return user != null ? const HomePage() : const LoginScreen();
   }
 }

@@ -8,7 +8,7 @@ const kSenderBubbleColor = Color(0xff303E47);
 
 final ThemeData lightTheme = ThemeData(
   primaryColor: kPrimaryColor,
-  colorScheme: ColorScheme(
+  colorScheme: const ColorScheme(
     primary: kPrimaryColor,
     primaryContainer: kPrimaryColor,
     secondary: kAccentColor,
@@ -20,13 +20,13 @@ final ThemeData lightTheme = ThemeData(
     onSecondary: kAccentColor,
     onSurface: kBackgroundColor,
     onBackground: kBackgroundColor,
-    onError: Colors.red[200],
-    error: Colors.red[200],
+    onError: Color(0xffFFCDD2),
+    error: Color(0xffFFCDD2),
   ),
 );
 
 final ThemeData darkTheme = ThemeData.dark().copyWith(
-  colorScheme: ColorScheme(
+  colorScheme: const ColorScheme(
     primary: kPrimaryColor,
     primaryContainer: kPrimaryColor,
     secondary: kAccentColor,
@@ -38,7 +38,7 @@ final ThemeData darkTheme = ThemeData.dark().copyWith(
     onSecondary: kAccentColor,
     onSurface: kBackgroundColorDark,
     onBackground: kBackgroundColorDark,
-    onError: Colors.red[200],
-    error: Colors.red[200],
+    onError: Color(0xffFFCDD2),
+    error: Color(0xffFFCDD2),
   ),
 );

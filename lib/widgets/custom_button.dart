@@ -4,17 +4,14 @@ import '../res/styles/theme.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;
-  final Function onPressed;
+  final Function() onPressed;
   final List<Color> colorList;
 
   const CustomButton({
-    Key key,
-    this.label,
-    this.onPressed,
-    this.colorList = const [
-      kPrimaryColor,
-      Color(0xffBDC0FD),
-    ],
+    Key? key,
+    required this.label,
+    required this.onPressed,
+    this.colorList = const [kPrimaryColor, Color(0xffBDC0FD)],
   }) : super(key: key);
 
   @override

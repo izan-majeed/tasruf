@@ -15,10 +15,10 @@ import '../widgets/top_bar.dart';
 class SignUpScreen extends StatefulWidget {
   static const String id = 'SignUpScreen';
 
-  const SignUpScreen({Key key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
@@ -60,9 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       labelText: 'Name',
                       maxLength: 20,
                       controller: _nameController,
-                      customValidator: RequiredValidator(
-                        errorText: 'Enter your name',
-                      ),
+                      customValidator: RequiredValidator(errorText: 'Enter your name').call,
                     ),
                     const SizedBox(height: 20),
                     UserInputField(
@@ -84,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             errorText: 'Enter a valid phone number',
                           ),
                         ],
-                      ),
+                      ).call,
                     ),
                     const SizedBox(height: 20),
                     showSpinner
@@ -114,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   signUp() async {
     FocusScope.of(context).unfocus();
     try {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           showSpinner = true;
         });
@@ -151,7 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         context: context,
         dialogType: DialogType.error,
         title: 'Error: ',
-        desc: e.message,
+        desc: e.toString(),
         okPress: () {},
       );
     }

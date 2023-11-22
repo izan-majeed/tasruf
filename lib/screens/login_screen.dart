@@ -16,10 +16,10 @@ import '../widgets/custom_auth_row.dart';
 class LoginScreen extends StatefulWidget {
   static const String id = 'LoginScreen';
 
-  const LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             errorText: 'Enter a valid 10 digit phone number',
                           )
                         ],
-                      ),
+                      ).call,
                     ),
                     const SizedBox(height: 20),
                     showSpinner
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
   logIn() async {
     FocusScope.of(context).unfocus();
     try {
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState!.validate()) {
         setState(() {
           showSpinner = true;
         });
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         dialogType: DialogType.error,
         title: 'Error: ',
-        desc: e.message,
+        desc: e.toString(),
         okPress: () {},
       );
     }

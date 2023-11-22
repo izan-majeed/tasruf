@@ -11,14 +11,15 @@ class MessageInputText extends StatefulWidget {
   final String replyTo;
   final String replyingTo;
   final Function prepareReply;
-  
-  MessageInputText(
-    this.replyTo,
-    this.prepareReply,
-    this.replyingTo,
-  );
+
+  const MessageInputText({
+    Key? key,
+    this.replyTo = '',
+    this.replyingTo = '',
+    required this.prepareReply,
+  }) : super(key: key);
   @override
-  _MessageInputTextState createState() => _MessageInputTextState();
+  State<MessageInputText> createState() => _MessageInputTextState();
 }
 
 class _MessageInputTextState extends State<MessageInputText> {
@@ -26,7 +27,7 @@ class _MessageInputTextState extends State<MessageInputText> {
   final _user = FirebaseAuth.instance.currentUser;
 
   final messageTextController = TextEditingController();
-  String messageText;
+  late String messageText;
 
   @override
   Widget build(BuildContext context) {
@@ -105,12 +106,13 @@ class _MessageInputTextState extends State<MessageInputText> {
               if (messageText != '') {
                 userRef.collection('messages').add(
                   {
-                    'id': _user.uid,
-                    'sender': _user.displayName,
+                    'id': _user!.uid,
+                    'sender': _user!.displayName,
                     'text': messageText,
                     'time': DateTime.now(),
-                    'replyTo': widget.replyTo ?? '',
+                    'replyTo': widget.replyTo,
                     'replyingTo': widget.replyingTo,
+                    'phoneNumber': _user!.phoneNumber,
                   },
                 );
               }

@@ -10,23 +10,23 @@ class UserInputField extends StatelessWidget {
   final bool obscureText;
   final int maxLength;
   final TextInputType keyboardType;
-  final List<TextInputFormatter> inputFormatters;
+  final List<TextInputFormatter>? inputFormatters;
   final TextEditingController controller;
   final FormFieldValidator<String> customValidator;
   final FloatingLabelBehavior floatingLabelBehavior;
   final TextInputAction textInputAction;
 
   const UserInputField({
-    Key key,
-    this.icon,
-    this.labelText,
+    Key? key,
+    required this.icon,
+    required this.labelText,
+    required this.controller,
+    required this.customValidator,
+    this.inputFormatters,
     this.prefixText = '',
     this.keyboardType = TextInputType.text,
-    this.inputFormatters,
     this.maxLength = 10,
-    this.controller,
     this.obscureText = false,
-    this.customValidator,
     this.floatingLabelBehavior = FloatingLabelBehavior.auto,
     this.textInputAction = TextInputAction.done,
   }) : super(key: key);

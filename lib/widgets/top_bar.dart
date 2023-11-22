@@ -5,7 +5,10 @@ import '../res/styles/text_style.dart';
 
 class TopBar extends StatelessWidget {
   final String title;
-  const TopBar({Key key, this.title}) : super(key: key);
+  const TopBar({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

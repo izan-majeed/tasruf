@@ -12,10 +12,10 @@ import '../widgets/custom_drawrer.dart';
 class HomePage extends StatefulWidget {
   static const String id = 'HomePage';
 
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: AnimatedBackground(
         behaviour: RandomParticleBehaviour(
           options: particleOptions,
@@ -62,22 +62,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            MessagesStream(prepareReply),
-            MessageInputText(replyTo, prepareReply, replyingTo),
+            MessagesStream(prepareReply: prepareReply),
+            MessageInputText(
+              replyTo: replyTo,
+              replyingTo: replyingTo,
+              prepareReply: prepareReply,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildAppBar(BuildContext context) {
+  PreferredSizeWidget buildAppBar(BuildContext context) {
     return AppBar(
       title: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('loading...');
             return Text(
-              "${snapshot.data.docs.length} Tasrufdars",
+              "${snapshot.data!.docs.length} Tasrufdars",
               style: const TextStyle(
                 color: Colors.white,
               ),

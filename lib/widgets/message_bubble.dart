@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 import '../res/styles/text_style.dart';
@@ -7,7 +8,7 @@ import '../res/styles/theme.dart';
 
 class MessageBubble extends StatelessWidget {
   final String sender;
-  final text;
+  final SelectableLinkify text;
   final bool isMe;
   final Timestamp time;
   final String replyTo;
@@ -15,14 +16,14 @@ class MessageBubble extends StatelessWidget {
   final String replyingTo;
 
   const MessageBubble({
-    Key key,
+    Key? key,
     this.sender = '',
-    this.text,
-    this.isMe,
-    this.time,
-    this.replyTo,
-    this.prepareReply,
-    this.replyingTo,
+    required this.text,
+    required this.isMe,
+    required this.time,
+    required this.replyTo,
+    required this.prepareReply,
+    required this.replyingTo,
   }) : super(key: key);
 
   @override
@@ -38,9 +39,8 @@ class MessageBubble extends StatelessWidget {
               children: [
                 buildTimeStamp(context),
                 SwipeTo(
-                  onRightSwipe: () {
-                    prepareReply(text.text, sender);
-                  },
+                  onRightSwipe: (details) => prepareReply(text.text, sender),
+                  onLeftSwipe: (details) => prepareReply(text.text, sender),
                   child: SizedBox(
                     width: double.infinity,
                     child: Container(
@@ -59,9 +59,8 @@ class MessageBubble extends StatelessWidget {
               children: [
                 buildTimeStamp(context),
                 SwipeTo(
-                  onRightSwipe: () {
-                    prepareReply(text.text, sender);
-                  },
+                  onRightSwipe: (details) => prepareReply(text.text, sender),
+                  onLeftSwipe: (details) => prepareReply(text.text, sender),
                   child: SizedBox(
                     width: double.infinity,
                     child: Column(

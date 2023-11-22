@@ -6,7 +6,12 @@ class AuthRow extends StatelessWidget {
   final String richTextFieldText;
   final String text;
 
-  const AuthRow(this.tapHandler, this.richTextFieldText, this.text, {Key key}) : super(key: key);
+  const AuthRow(
+    this.tapHandler,
+    this.richTextFieldText,
+    this.text, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

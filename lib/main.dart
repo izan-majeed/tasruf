@@ -11,10 +11,9 @@ import './screens/login_screen.dart';
 import './screens/sign_up_screen.dart';
 import './screens/home_page.dart';
 import './providers/theme_provider.dart';
-import './providers/auth_provider.dart';
+import './providers/custom_auth_provider.dart';
 import './res/values/strings.dart';
 
-// TODO: migrate to null safety
 // TODO: write firebase cloud function to clear messages collection after 24 hours
 // TODO: use singleton class for shared preferences
 
@@ -31,12 +30,12 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        Provider<AuthProvider>(
-          create: (_) => AuthProvider(FirebaseAuth.instance),
+        Provider<CustomAuthProvider>(
+          create: (_) => CustomAuthProvider(FirebaseAuth.instance),
         ),
         StreamProvider(
           initialData: null,
-          create: (context) => context.read<AuthProvider>().authState,
+          create: (context) => context.read<CustomAuthProvider>().authState,
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (_) => ThemeProvider(
@@ -50,7 +49,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

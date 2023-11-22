@@ -4,18 +4,19 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import './theme.dart';
 
 AwesomeDialog awesomeDialog({
-  BuildContext context,
-  DialogType dialogType,
-  String title,
-  String desc,
-  Function okPress,
-  Function cancelPress,
+  required BuildContext context,
+  required DialogType dialogType,
+  required String title,
+  void Function()? okPress,
+  void Function()? cancelPress,
+  bool autoHide = true,
+  String? desc,
 }) {
   return AwesomeDialog(
     context: context,
     dialogType: dialogType,
     animType: AnimType.topSlide,
-    autoHide: const Duration(seconds: 4),
+    autoHide: autoHide ? const Duration(seconds: 4) : null,
     title: title,
     desc: desc,
     btnOkOnPress: okPress,

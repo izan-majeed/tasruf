@@ -9,8 +9,12 @@ import '../widgets/message_bubble.dart';
 import '../res/styles/text_style.dart';
 
 class MessagesStream extends StatelessWidget {
-  final prepareReply;
-  const MessagesStream(this.prepareReply, {Key key}) : super(key: key);
+  final Function prepareReply;
+
+  const MessagesStream({
+    Key? key,
+    required this.prepareReply,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class MessagesStream extends StatelessWidget {
           );
         }
 
-        return (snapshot.data.docs.isEmpty) ? buildNoChatsFound(context) : buildChat(context, snapshot, auth);
+        return snapshot.data!.docs.isEmpty ? buildNoChatsFound(context) : buildChat(context, snapshot, auth);
       },
     );
   }
@@ -47,18 +51,8 @@ class MessagesStream extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           DocumentSnapshot message = snapshot.data.docs[index];
 
-          var replyTo;
-          try {
-            replyTo = message['replyTo'];
-          } catch (error) {
-            replyTo = '';
-          }
-          var replyingTo;
-          try {
-            replyingTo = message['replyingTo'];
-          } catch (error) {
-            replyingTo = 'Unknown';
-          }
+          String replyTo = message['replyTo'] ?? '';
+          String replyingTo = message['replyingTo'] ?? 'Unknown';
 
           return MessageBubble(
             sender: message['sender'],
@@ -71,7 +65,9 @@ class MessagesStream extends StatelessWidget {
                       Uri.parse(message['text']),
                       mode: LaunchMode.externalApplication,
                     );
-                  } catch (e) {}
+                  } catch (e) {
+                    debugPrint(e.toString());
+                  }
                 }),
             isMe: (auth.currentUser.uid == message['id']),
             time: message['time'],
@@ -89,7 +85,7 @@ class MessagesStream extends StatelessWidget {
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),
       child: SvgPicture.asset(
         'assets/images/empty.svg',
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).size.height * 0.2,
       ),
     );
   }
